@@ -38,17 +38,7 @@ If you want to edit it for yourself: the text is in `index.html`, the colors are
  Deploying
 I hosted it on GitHub Pages (you can also use Vercel). For GitHub Pages, go to Settings, then Pages, pick the `main` branch and save. The link shows up after a minute or two.
 
- Screenshots
 
-Light theme:
 
-![Light theme] 
 
-Dark theme:(images/screenshot-light.png)
-
-![Dark theme](images/screenshot-dark.png)
-
-On mobile:
-
-![Mobile](images/screenshot-mobile.png)
 
