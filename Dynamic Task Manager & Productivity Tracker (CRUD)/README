@@ -1,1 +1,100 @@
+ TaskFlow — Dynamic Task Manager & Productivity Tracker
+ A modern, responsive, and accessible personal task manager and productivity tracker built using **vanilla HTML5, CSS3, and JavaScript (ES6+)**. TaskFlow runs entirely client-side in any modern web browser with zero dependencies, build tools, or backend required.
 
+ Key Features
+
+ 1. Real-Time Productivity Dashboard
+Total Tasks: Immediate tally of all stored tasks.
+Active Tasks: Real-time counter of pending/incomplete tasks.
+Completed Tasks: Real-time counter of completed tasks with strikethrough visuals.
+Overdue Tasks: Intelligently identifies incomplete tasks whose due date is in the past compared to the local date. Completed tasks are never marked as overdue.
+Mathematical Consistency: Guaranteed invariant Total Tasks = Active Tasks + Completed Tasks.
+2. Complete CRUD Lifecycle
+-Create:
+  - Validates task titles (trims whitespace, prevents empty submissions).
+  - Assigns unique IDs (`crypto.randomUUID()` with fallback).
+  - Categorization: Work , Personal , Study , and Other .
+  - Optional due date picker.
+  - Keyboard-friendly (<kbd>Enter</kbd> submits form).
+Read:
+  - Safe DOM generation via `document.createElement() and textContent (immune to XSS).
+  - Humanized relative dates ("Today", "Tomorrow", "Yesterday", or formatted dates).
+  - Status badges, category color-coding, and alert pills for overdue tasks.
+Update (Edit):
+  - Accessible modal dialog pre-fills title, category, and due date.
+  - Validates changes before saving while preserving the original task ID, completion status, and creation timestamp.
+  - Dismissible with <kbd>Cancel</kbd>, clicking the backdrop, or pressing <kbd>Escape</kbd>.
+-Delete:
+  - Custom confirmation modal clearly displaying the task name to prevent accidental deletion.
+  - Safe cancellation leaves data intact.
+
+3. Dynamic Search & Multi-Level Filtering
+- Status Filters: Quick switch between All, Active, and Completed with live counter pills.
+- Category Filter: Filter tasks by category (Work, Personal, Study, Other).
+- Instant Search: Case-insensitive substring matching against task titles as you type.
+- One-Click Clear: Instant search reset button (<kbd>×</kbd>).
+- Non-Destructive: Filters and search never delete or alter stored data.
+- Contextual Empty States: Helpful illustrations and messages when no tasks match the active filters or search terms.
+
+  4. Native HTML5 Drag-and-Drop Reordering
+- Easily reorder tasks by dragging cards in the primary list view.
+- Persists custom drag ordering directly into `localStorage`.
+- Safely disabled during active search or status filtering to avoid ambiguous reordering, with a clear visual notice.
+ 5. Reliable localStorage Persistence
+- Uses `saveToLocalStorage()` and `loadFromLocalStorage()` helper functions.
+- Storage key: `taskflow_tasks`.
+- Built-in `try...catch` validation safeguards against corrupted JSON and storage quota limits.
+- Automatically restores all tasks and theme preferences upon reloading or reopening the page.
+
+ 6. Modern UI/UX & Dark/Light Mode
+- Clean typography featuring Plus Jakarta Sans.
+- CSS Custom Properties (Variables) for fluid theme transitions.
+- Light and Dark mode toggle button in the header (persisted in `localStorage`).
+- Accessible :focus-visible outlines, smooth animations, and toast feedback for all key actions.
+- Fully responsive across desktop, tablet, and mobile screens.
+- Honors `prefers-reduced-motion: reduce`.
+
+---
+
+ Project Structure
+
+d:\Dynamic Task Manager\
+├── index.html        Semantic HTML5 layout, accessible modals, stat cards & forms
+├── style.css         Responsive styling, CSS variables, dark/light themes & animations
+├── script.js         Vanilla JS application state, CRUD operations & event handling
+└── README.md         Comprehensive documentation
+
+
+ How to Run the Application
+
+Because this is a pure front-end web application with no build steps or external dependencies, you can run it immediately:
+ Option 1: Direct File Opening
+1. Open the project folder `d:\Dynamic Task Manager\`.
+2. Double-click index.html to open it in your default browser (Google Chrome, Microsoft Edge, Mozilla Firefox, Apple Safari, etc.).
+
+ Option 2: Local HTTP Server (Optional)
+If you prefer running through a local development server:
+
+Using VS Code Live Server:
+1. Open the folder in VS Code.
+2. Right-click index.html and choose "Open with Live Server".
+
+
+  Data Model & Schema
+Each task object stored in the central tasks array adheres to the following structure:
+
+typescript
+interface Task {
+  id: string;          // Unique string identifier (e.g. "task_...")
+  title: string;       // Non-empty trimmed task title
+  category: string;    // 'Work' | 'Personal' | 'Study' | 'Other'
+  dueDate: string;     // ISO Date string 'YYYY-MM-DD' or ''
+  completed: boolean;  // Boolean completion flag (false by default)
+  createdAt: string;   // ISO 8601 Timestamp of creation
+}
+ Accessibility & Keyboard Shortcuts
+
+- <kbd>Enter</kbd> inside form inputs: Submits the task creation or edit form.
+- <kbd>Escape</kbd>: Immediately closes any open modal (Edit or Delete confirmation).
+- <kbd>Tab</kbd> / <kbd>Shift+Tab</kbd>: Accessible sequential keyboard navigation across all buttons, inputs, checkboxes, and filters.
+- Screen Reader Friendly**: Includes semantic HTML5 landmarks, ARIA labels (`aria-modal`, `role="dialog"`, `role="alert"`), and polite live regions.
